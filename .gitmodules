@@ -1,0 +1,3 @@
+[submodule "src/geonode_qgis_server"]
+	path = src/geonode_qgis_server
+	url = https://github.com/ismailsunni/geonode_qgis_server.git
