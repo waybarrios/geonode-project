@@ -83,3 +83,7 @@ ipython==5.0.0
 
 # Allow production use with uWSGI instead of runserver
 uWSGI==2.0.13.1
+
+#Install QGIS Server
+#link:https://pypi.python.org/pypi/geonode_qgis_server/0.1.0
+geonode_qgis_server==0.1.0
