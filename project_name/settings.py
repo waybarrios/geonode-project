@@ -78,6 +78,11 @@ SITE_ID = int(os.getenv('SITE_ID', '1'))
 USE_I18N = str2bool(os.getenv('USE_I18N', 'True'))
 USE_L10N = str2bool(os.getenv('USE_I18N', 'True'))
 
+#QGIS SERVER URL
+QGIS_SERVER_URL = os.getenv(
+    'QGIS_SERVER_URL', 'http://qgis-server/cgi-bin/qgis_mapserv.fcgi')
+tiles_directory = os.path.join(PROJECT_ROOT, "qgis_tiles")
+
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
 LANGUAGE_CODE = os.getenv('LANGUAGE_CODE', "en-us")
@@ -979,15 +984,17 @@ if os.name == 'nt':
 
 # define the urls after the settings are overridden
 
+
 if 'geonode.qgis_server' in INSTALLED_APPS:
-    tiles_directory = os.path.join(PROJECT_ROOT, "qgis_tiles")
     QGIS_SERVER_CONFIG = {
-        'tiles_directory': tiles_directory,
-        'tile_path': tiles_directory + '/%s/%d/%d/%d.png',
-        'legend_path': tiles_directory + '/%s/legend.png',
-        'thumbnail_path': tiles_directory + '/%s/thumbnail.png',
-        'qgis_server_url': 'http://127.0.0.1/qgisltr',
-        'layer_directory': os.path.join(PROJECT_ROOT, "qgis_layer")
+    'tiles_directory': tiles_directory,
+    'tile_path': tiles_directory + '/%s/%d/%d/%d.png',
+    'legend_path': tiles_directory + '/%s/legend.png',
+    'thumbnail_path': tiles_directory + '/%s/thumbnail.png',
+    'map_tile_path': os.path.join(
+        tiles_directory, '%s', 'map_tiles', '%s', '%s', '%s', '%s.png'),
+    'qgis_server_url': QGIS_SERVER_URL,
+    'layer_directory': os.path.join(PROJECT_ROOT, "qgis_layer")
     }
 
     baselayers = MAP_BASELAYERS
