@@ -118,8 +118,8 @@ if "geonode.contrib.metadataxsl" in settings.INSTALLED_APPS:
 
 if 'geonode.qgis_server' in settings.INSTALLED_APPS:
     urlpatterns += patterns('',
-                            (r'', include('geonode.qgis_server.urls')),
-                            )
+                           (r'', include('geonode_qgis_server.urls', namespace="geonode_qgis_server")),
+                           )
 
 
 if 'notification' in settings.INSTALLED_APPS:
