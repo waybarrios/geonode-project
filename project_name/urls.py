@@ -117,7 +117,6 @@ if "geonode.contrib.metadataxsl" in settings.INSTALLED_APPS:
                             )
 
 if 'geonode.qgis_server' in settings.INSTALLED_APPS:
-    # GeoServer Helper Views
     urlpatterns += patterns('',
                             (r'', include('geonode.qgis_server.urls')),
                             )
