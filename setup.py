@@ -24,5 +24,6 @@ setup(
     zip_safe=False,
     install_requires=[
        'geonode>=2.5',
+       'geonode_qgis_server>=0.1.0',
     ],
 )
