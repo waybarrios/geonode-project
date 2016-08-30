@@ -48,9 +48,9 @@ services:
       - /setup-qgis-server.sh
 
   nginx:
-    image: terranodo/nginx:geoserver
+    image: terranodo/nginx
     links:
       - django
-      - geoserver
+  
     ports:
       - "80:80"
