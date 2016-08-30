@@ -247,11 +247,8 @@ GEONODE_APPS = (
     'geonode.api',
     'geonode.groups',
     'geonode.services',
-
-    # GeoServer Apps
-    # Geoserver needs to come last because
-    # it's signals may rely on other apps' signals.
-    'geonode.geoserver',
+    # QGIS Server Apps
+    'geonode.qgis_server',
     'geonode.upload',
     'geonode.tasks'
 )
@@ -395,7 +392,7 @@ _DEFAULT_TEMPLATE_CONTEXT_PROCESSORS = (
     # The context processor below adds things like SITEURL
     # and GEOSERVER_BASE_URL to all pages that use a RequestContext
     'geonode.context_processors.resource_urls',
-    'geonode.geoserver.context_processors.geoserver_urls',
+    
 )
 TEMPLATE_CONTEXT_PROCESSORS = os.getenv('TEMPLATE_CONTEXT_PROCESSORS',_DEFAULT_TEMPLATE_CONTEXT_PROCESSORS)
 
@@ -536,28 +533,13 @@ CACHE_TIME = int(os.getenv('CACHE_TIME','0'))
 
 # OGC (WMS/WFS/WCS) Server Settings
 # OGC (WMS/WFS/WCS) Server Settings
+
 _DEFAULT_OGC_SERVER = {
     'default': {
-        'BACKEND': 'geonode.geoserver',
-        'LOCATION': 'http://localhost:8080/geoserver/',
-        # PUBLIC_LOCATION needs to be kept like this because in dev mode
-        # the proxy won't work and the integration tests will fail
-        # the entire block has to be overridden in the local_settings
-        'PUBLIC_LOCATION': 'http://localhost:8080/geoserver/',
-        'USER': 'admin',
-        'PASSWORD': 'geoserver',
-        'MAPFISH_PRINT_ENABLED': True,
-        'PRINT_NG_ENABLED': True,
-        'GEONODE_SECURITY_ENABLED': True,
-        'GEOGIG_ENABLED': False,
-        'WMST_ENABLED': False,
-        'BACKEND_WRITE_ENABLED': True,
-        'WPS_ENABLED': False,
-        'LOG_FILE': '%s/geoserver/data/logs/geoserver.log' % os.path.abspath(os.path.join(PROJECT_ROOT, os.pardir)),
-        # Set to name of database in DATABASES dictionary to enable
-        'DATASTORE': '',  # 'datastore',
-        'PG_GEOGIG': False,
-        'TIMEOUT': 10  # number of seconds to allow for HTTP requests
+        'BACKEND': 'geonode.qgis_server',
+        'LOCATION': SITEURL + 'qgis-server/',
+        'PUBLIC_LOCATION': SITEURL + 'qgis-server/'
+
     }
 }
 OGC_SERVER = os.getenv('OGC_SERVER',_DEFAULT_OGC_SERVER)
@@ -653,18 +635,6 @@ PYCSW = os.getenv('PYCSW',_DEFAULT_PYSCSW)
 # default map projection
 # Note: If set to EPSG:4326, then only EPSG:4326 basemaps will work.
 DEFAULT_MAP_CRS = os.getenv('DEFAULT_MAP_CRS',"EPSG:900913")
-
-
-# The FULLY QUALIFIED url to the GeoServer instance for this GeoNode.
-GEOSERVER_BASE_URL = os.getenv('GEOSERVER_BASE_URL',
-                               "http://localhost:8001/geoserver-geonode-dev/")
-
-# The username and password for a user that can add and edit layer details on GeoServer
-
-_DEFAULT_GEOSERVER_CREDENTIALS = "geoserver_admin", SECRET_KEY
-GEOSERVER_CREDENTIALS = os.getenv('GEOSERVER_CREDENTIALS', ("geoserver_admin", SECRET_KEY))
-
-
 # Where should newly created maps be focused?
 DEFAULT_MAP_CENTER = (0, 0)
 
@@ -703,6 +673,8 @@ _DEFAULT_MAP_BASELAYERS = [{
     "fixed": True,
     "group": "background"
 }]
+
+
 
 MAP_BASELAYERS = os.getenv('MAP_BASELAYERS',_DEFAULT_MAP_BASELAYERS)
 
@@ -870,6 +842,7 @@ _DEFAULT_LEAFLET_CONFIG = {
 }
 LEAFLET_CONFIG = os.getenv('LEAFLET_CONFIG',_DEFAULT_LEAFLET_CONFIG)
 
+
 # option to enable/disable resource unpublishing for administrators
 RESOURCE_PUBLISHING = False
 
@@ -905,7 +878,7 @@ CACHES = {
     #     }
 }
 
-LAYER_PREVIEW_LIBRARY = 'geoext'
+LAYER_PREVIEW_LIBRARY = 'leaflet'
 
 SERVICE_UPDATE_INTERVAL = 0
 
@@ -1005,16 +978,20 @@ if os.name == 'nt':
 
 
 # define the urls after the settings are overridden
-if 'geonode.geoserver' in INSTALLED_APPS:
-    LOCAL_GEOSERVER = {
-        "source": {
-            "ptype": "gxp_wmscsource",
-            "url": OGC_SERVER['default']['PUBLIC_LOCATION'] + "wms",
-            "restUrl": "/gs/rest"
-        }
+
+if 'geonode.qgis_server' in INSTALLED_APPS:
+    tiles_directory = os.path.join(PROJECT_ROOT, "qgis_tiles")
+    QGIS_SERVER_CONFIG = {
+        'tiles_directory': tiles_directory,
+        'tile_path': tiles_directory + '/%s/%d/%d/%d.png',
+        'legend_path': tiles_directory + '/%s/legend.png',
+        'thumbnail_path': tiles_directory + '/%s/thumbnail.png',
+        'qgis_server_url': 'http://127.0.0.1/qgisltr',
+        'layer_directory': os.path.join(PROJECT_ROOT, "qgis_layer")
     }
+
     baselayers = MAP_BASELAYERS
-    MAP_BASELAYERS = [LOCAL_GEOSERVER]
+    MAP_BASELAYERS = [QGIS_SERVER_CONFIG]
     MAP_BASELAYERS.extend(baselayers)
 
 
