@@ -33,7 +33,7 @@ Access the site on http://localhost/
 
 
 Recommended: Track your changes
------
+--------
 
 Step 1. Install Git (for Linux, Mac or Windows).
 
