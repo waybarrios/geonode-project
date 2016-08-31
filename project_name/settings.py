@@ -253,7 +253,7 @@ GEONODE_APPS = (
     'geonode.groups',
     'geonode.services',
     # QGIS Server Apps
-    'geonode.qgis_server',
+    'geonode_qgis_server',
     'geonode.upload',
     'geonode.tasks'
 )
