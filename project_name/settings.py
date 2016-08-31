@@ -985,7 +985,7 @@ if os.name == 'nt':
 # define the urls after the settings are overridden
 
 
-if 'geonode.qgis_server' in INSTALLED_APPS:
+if 'geonode_qgis_server' in INSTALLED_APPS:
     QGIS_SERVER_CONFIG = {
     'tiles_directory': tiles_directory,
     'tile_path': tiles_directory + '/%s/%d/%d/%d.png',
