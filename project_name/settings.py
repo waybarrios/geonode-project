@@ -42,6 +42,7 @@ VERSION = get_version()
 # It is used for relative settings elsewhere.
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 GEONODE_ROOT = os.path.abspath(os.path.dirname(geonode_path))
+QGIS_ROOT = os.getenv('QGIS_ROOT','/usr/src/app/geonode_qgis_server/')
 
 # Setting debug to true makes Django serve static media and
 # present pretty error pages.
@@ -79,9 +80,10 @@ USE_I18N = str2bool(os.getenv('USE_I18N', 'True'))
 USE_L10N = str2bool(os.getenv('USE_I18N', 'True'))
 
 #QGIS SERVER URL
+tiles_directory = os.path.join(PROJECT_ROOT, "qgis_tiles")
 QGIS_SERVER_URL = os.getenv(
     'QGIS_SERVER_URL', 'http://qgis-server/cgi-bin/qgis_mapserv.fcgi')
-tiles_directory = os.path.join(PROJECT_ROOT, "qgis_tiles")
+
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
@@ -179,6 +181,8 @@ STATIC_URL = os.getenv('STATIC_URL',"/static/")
 _DEFAULT_STATICFILES_DIRS = [
     os.path.join(PROJECT_ROOT, "static"),
     os.path.join(GEONODE_ROOT, "static"),
+    os.path.join(QGIS_ROOT,"static"),
+    
 ]
 
 STATICFILES_DIRS = os.getenv('STATICFILES_DIRS',_DEFAULT_STATICFILES_DIRS)
@@ -205,6 +209,7 @@ TEMPLATE_LOADERS = os.getenv('TEMPLATE_LOADERS',_DEFAULT_TEMPLATE_LOADERS)
 _DEFAULT_TEMPLATE_DIRS = (
     os.path.join(PROJECT_ROOT, "templates"),
     os.path.join(GEONODE_ROOT, "templates"),
+    os.path.join(QGIS_ROOT, "templates"),
 )
 TEMPLATE_DIRS = os.getenv('TEMPLATE_DIRS',_DEFAULT_TEMPLATE_DIRS)
 
@@ -539,15 +544,15 @@ CACHE_TIME = int(os.getenv('CACHE_TIME','0'))
 # OGC (WMS/WFS/WCS) Server Settings
 # OGC (WMS/WFS/WCS) Server Settings
 
-_DEFAULT_OGC_SERVER = {
-    'default': {
-        'BACKEND': 'geonode.qgis_server',
-        'LOCATION': SITEURL + 'qgis-server/',
-        'PUBLIC_LOCATION': SITEURL + 'qgis-server/'
+# _DEFAULT_OGC_SERVER = {
+#     'default': {
+#         'BACKEND': 'geonode_qgis_server',
+#         'LOCATION': SITEURL + 'qgis-server/',
+#         'PUBLIC_LOCATION': SITEURL + 'qgis-server/'
 
-    }
-}
-OGC_SERVER = os.getenv('OGC_SERVER',_DEFAULT_OGC_SERVER)
+#     }
+# }
+# OGC_SERVER = os.getenv('OGC_SERVER',_DEFAULT_OGC_SERVER)
 
 # Uploader Settings
 _DEFAULT_UPLOADER = {
@@ -579,10 +584,12 @@ _DEFAULT_CATALOGUE = {
         # 'URL': 'http://localhost:8080/deegree-csw-demo-3.0.4/services',
 
         # login credentials (for GeoNetwork)
-        # 'USER': 'admin',
-        # 'PASSWORD': 'admin',
+         'USER': 'admin',
+         'PASSWORD': 'admin',
     }
 }
+
+
 CATALOGUE = os.getenv('CATALOGUE',_DEFAULT_CATALOGUE)
 # pycsw settings
 _DEFAULT_PYSCSW = {
