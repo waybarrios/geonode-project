@@ -544,15 +544,16 @@ CACHE_TIME = int(os.getenv('CACHE_TIME','0'))
 # OGC (WMS/WFS/WCS) Server Settings
 # OGC (WMS/WFS/WCS) Server Settings
 
-# _DEFAULT_OGC_SERVER = {
-#     'default': {
-#         'BACKEND': 'geonode_qgis_server',
-#         'LOCATION': SITEURL + 'qgis-server/',
-#         'PUBLIC_LOCATION': SITEURL + 'qgis-server/'
+_DEFAULT_OGC_SERVER = {
+    'default': {
+        'BACKEND': 'geonode_qgis_server',
+        'LOCATION': SITEURL + 'qgis-server/',
+        'PUBLIC_LOCATION': SITEURL + 'qgis-server/'
 
-#     }
-# }
-# OGC_SERVER = os.getenv('OGC_SERVER',_DEFAULT_OGC_SERVER)
+    }
+}
+
+OGC_SERVER = os.getenv('OGC_SERVER',_DEFAULT_OGC_SERVER)
 
 # Uploader Settings
 _DEFAULT_UPLOADER = {
