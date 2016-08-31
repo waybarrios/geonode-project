@@ -2,7 +2,7 @@ version: '2'
 services:
 
   postgres:
-    image: waybarrios/postgres
+    image: postgres
 
   elasticsearch:
    image: elasticsearch
@@ -17,6 +17,9 @@ services:
       - elasticsearch
       - rabbitmq
       - qgis-server
+    volumes:
+      - '../code/geonode_qgis_server/geonode_qgis_server:/usr/src/app/geonode_qgis_server'
+
     environment:
       - DATABASE_URL=postgres://postgres:postgres@postgres:5432/postgres
       - BROKER_URL=amqp://guest:guest@rabbitmq:5672/
