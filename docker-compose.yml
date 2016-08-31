@@ -43,7 +43,7 @@ services:
   qgis-server:
     image: waybarrios/qgis-server
     volumes:
-      - '../code/geonode_qgis_server/geonode_qgis_server:/usr/src/geonode_qgis_server'
+      - '../code/geonode_qgis_server/geonode_qgis_server:/usr/src/app/geonode_qgis_server'
     command:
       - /setup-qgis-server.sh
 
