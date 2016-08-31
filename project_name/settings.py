@@ -815,35 +815,43 @@ API_LIMIT_PER_PAGE = int(os.getenv('API_LIMIT_PER_PAGE','0'))
 API_INCLUDE_REGIONS_COUNT = str2bool(os.getenv('API_INCLUDE_REGIONS_COUNT', 'False'))
 
 _DEFAULT_LEAFLET_CONFIG = {
-    'TILES': [
+   'TILES': [
         # Find tiles at:
         # http://leaflet-extras.github.io/leaflet-providers/preview/
 
+        # Map Quest
+        ('Map Quest',
+         'http://otile4.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png',
+         'Tiles Courtesy of <a href="http://www.mapquest.com/">MapQuest</a> '
+         '&mdash; Map data &copy; '
+         '<a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'),
         # Stamen toner lite.
-        ('Watercolor',
-         'http://{s}.tile.stamen.com/watercolor/{z}/{x}/{y}.png',
-         'Map tiles by <a href="http://stamen.com">Stamen Design</a>, \
-         <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; \
-         <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, \
-         <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'),
-        ('Toner Lite',
-         'http://{s}.tile.stamen.com/toner-lite/{z}/{x}/{y}.png',
-         'Map tiles by <a href="http://stamen.com">Stamen Design</a>, \
-         <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; \
-         <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, \
-         <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'),
+        # ('Watercolor',
+        #  'http://{s}.tile.stamen.com/watercolor/{z}/{x}/{y}.png',
+        #  'Map tiles by <a href="http://stamen.com">Stamen Design</a>, \
+        #  <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; \
+        #  <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, \
+        #  <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'),
+        # ('Toner Lite',
+        #  'http://{s}.tile.stamen.com/toner-lite/{z}/{x}/{y}.png',
+        #  'Map tiles by <a href="http://stamen.com">Stamen Design</a>, \
+        #  <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; \
+        #  <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, \
+        #  <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'),
     ],
     'PLUGINS': {
         'esri-leaflet': {
-            'js': 'lib/js/esri-leaflet.js?v=%s' % VERSION,
+            'js': 'lib/js/esri-leaflet.js',
             'auto-include': True,
         },
         'leaflet-fullscreen': {
-            'css': 'lib/css/leaflet.fullscreen.css?v=%s' % VERSION,
-            'js': 'lib/js/Leaflet.fullscreen.min.js?v=%s' % VERSION,
+            'css': 'lib/css/leaflet.fullscreen.css',
+            'js': 'lib/js/Leaflet.fullscreen.min.js',
             'auto-include': True,
         },
-    }
+    },
+    'SRID': 3857,
+    'RESET_VIEW': False
 }
 LEAFLET_CONFIG = os.getenv('LEAFLET_CONFIG',_DEFAULT_LEAFLET_CONFIG)
 
