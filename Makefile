@@ -8,9 +8,13 @@ build:
 
 sync:
 	# set up the database tablea
-	docker-compose run django python manage.py makemigrations --noinput
-	docker-compose exec django python manage.py migrate account --noinput
-	docker-compose run django python manage.py migrate --noinput
+	docker-compose  exec django django-admin.py makemigrations --noinput
+	docker-compose  exec django django-admin.py migrate account --noinput
+	docker-compose  exec django django-admin.py migrate layers --noinput
+	docker-compose  exec django django-admin.py migrate geonode_qgis_server --noinput
+	docker-compose  exec django django-admin.py migrate --noinput
+	docker-compose  exec django django-admin.py loaddata sample_admin
+
 
 wait:
 	sleep 5
