@@ -547,7 +547,7 @@ CACHE_TIME = int(os.getenv('CACHE_TIME','0'))
 
 _DEFAULT_OGC_SERVER  = {
     'default': {
-        'BACKEND': 'geonode_qgis_server',,
+        'BACKEND': 'geonode_qgis_server',
         'LOCATION': SITEURL + 'qgis-server/',
         'PUBLIC_LOCATION': SITEURL + 'qgis-server/',
         'MAPFISH_PRINT_ENABLED': True,
