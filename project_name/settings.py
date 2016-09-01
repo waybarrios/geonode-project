@@ -544,15 +544,26 @@ CACHE_TIME = int(os.getenv('CACHE_TIME','0'))
 # OGC (WMS/WFS/WCS) Server Settings
 # OGC (WMS/WFS/WCS) Server Settings
 
-_DEFAULT_OGC_SERVER = {
-    'default': {
-        'BACKEND': 'geonode_qgis_server',
-        'LOCATION': SITEURL + 'qgis-server/',
-        'PUBLIC_LOCATION': SITEURL + 'qgis-server/'
 
+_DEFAULT_OGC_SERVER  = {
+    'default': {
+        'BACKEND': 'geonode_qgis_server',,
+        'LOCATION': SITEURL + 'qgis-server/',
+        'PUBLIC_LOCATION': SITEURL + 'qgis-server/',
+        'MAPFISH_PRINT_ENABLED': True,
+        'PRINT_NG_ENABLED': True,
+        'GEONODE_SECURITY_ENABLED': True,
+        'GEOGIG_ENABLED': False,
+        'WMST_ENABLED': False,
+        'BACKEND_WRITE_ENABLED': True,
+        'WPS_ENABLED': False,
+        'LOG_FILE': '%s/qgis/data/logs/qgis.log' % os.path.abspath(os.path.join(PROJECT_ROOT, os.pardir)),
+        # Set to name of database in DATABASES dictionary to enable
+        'DATASTORE': '',  # 'datastore',
+        'PG_GEOGIG': False,
+        'TIMEOUT': 10  # number of seconds to allow for HTTP requests
     }
 }
-
 OGC_SERVER = os.getenv('OGC_SERVER',_DEFAULT_OGC_SERVER)
 
 # Uploader Settings
