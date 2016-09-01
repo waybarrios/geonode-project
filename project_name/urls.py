@@ -116,7 +116,7 @@ if "geonode.contrib.metadataxsl" in settings.INSTALLED_APPS:
                             (r'^showmetadata/', include('geonode.contrib.metadataxsl.urls')),
                             )
 
-if 'geonode.qgis_server' in settings.INSTALLED_APPS:
+if 'geonode_qgis_server' in settings.INSTALLED_APPS:
     urlpatterns += patterns('',
                            (r'', include('geonode_qgis_server.urls', namespace="geonode_qgis_server")),
                            )
