@@ -48,8 +48,7 @@ services:
     volumes:
       - '../code/geonode_qgis_server/geonode_qgis_server:/usr/src/app/geonode_qgis_server'
       - '.:/usr/src/app'
-    
- command:
+    command:
       - /setup-qgis-server.sh
 
   nginx:
