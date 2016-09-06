@@ -76,8 +76,8 @@ django-treebeard==3.0
 urllib3==1.16
 
 # GeoNode official release
-#GeoNode==2.5
-git+https://github.com/GeoNode/geonode.git#egg=GeoNode
+GeoNode==2.5.3
+
 
 
 # Enhance Django's shell
