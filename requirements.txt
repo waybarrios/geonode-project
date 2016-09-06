@@ -86,4 +86,5 @@ uWSGI==2.0.13.1
 
 #Install QGIS Server
 #link:https://pypi.python.org/pypi/geonode_qgis_server/0.1.0
-geonode_qgis_server==0.1.0
+#fixing master repo from kartoza/geonode_qgis_server
+git+https://github.com/kartoza/geonode_qgis_server.git#egg=geonode_qgis_server
