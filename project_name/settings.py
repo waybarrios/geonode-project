@@ -257,6 +257,7 @@ GEONODE_APPS = (
     'geonode.api',
     'geonode.groups',
     'geonode.services',
+    'geonode.geoserver',
     # QGIS Server Apps
     'geonode_qgis_server',
     'geonode.upload',
@@ -874,6 +875,12 @@ _DEFAULT_LEAFLET_CONFIG = {
 }
 LEAFLET_CONFIG = os.getenv('LEAFLET_CONFIG',_DEFAULT_LEAFLET_CONFIG)
 
+try:
+    INSTALLED_APPS.remove("geonode.geoserver")
+    MAP_BASELAYERS.remove(LOCAL_GEOSERVER)
+    del LOCAL_GEOSERVER
+except:
+    pass
 
 # option to enable/disable resource unpublishing for administrators
 RESOURCE_PUBLISHING = False
